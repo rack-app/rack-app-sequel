@@ -1,0 +1,32 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+COMMAND=$1
+
+function main() {
+  case "$COMMAND" in
+  up) up
+      ;;
+  down) down
+      ;;
+  destroy) destroy
+      ;;
+  *) echo "invalid command: script/database up|down|destroy"
+      ;;
+  esac
+}
+
+function up() {
+  vagrant up
+}
+
+function down() {
+  vagrant suspend
+}
+
+function destroy() {
+  vagrant destroy -f
+}
+
+main
