@@ -1,9 +1,9 @@
 require 'sequel'
 require 'rack/app'
 module Rack::App::SeQueL
-  require 'rack/app/db/ext'
-  require 'rack/app/db/version'
-  require 'rack/app/db/migration'
+  require 'rack/app/sequel/ext'
+  require 'rack/app/sequel/version'
+  require 'rack/app/sequel/migration'
 
   def open_connection
     Sequel.connect(ENV.fetch('DATABASE_URL'))
