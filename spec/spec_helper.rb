@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "rack/app/db"
+require "rack/app/sequel"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

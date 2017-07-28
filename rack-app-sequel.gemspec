@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
 
-  spec.summary       = %q{rack-app db usecase integration for migration and modelling}
-  spec.description   = %q{rack-app db usecase integration for migration and modelling}
+  spec.summary       = %q{rack-app sequel integration for db migration and modelling}
+  spec.description   = %q{rack-app sequel integration for db migration and modelling}
   spec.homepage      = "https://github.com/rack-app/rack-app-sequel"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
