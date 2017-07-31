@@ -15,6 +15,10 @@ Rack::App::SeQueL::Migration::CLI = lambda do
         options[:migration_directory] = string
       end
 
+      option '--verbose', 'set migration to be verbose instead of silent' do
+        options[:verbose] = true
+      end
+
       action do
 
         options[:migration_directory] ||= Rack::App::SeQueL::Migration::DEFAULT_DIRECTORY
@@ -23,19 +27,23 @@ Rack::App::SeQueL::Migration::CLI = lambda do
         db = Rack::App::SeQueL.open_connection
         db = Sequel.connect(ENV.fetch('DATABASE_URL'))
 
+        logger = Logger.new(options[:verbose] ? ::STDOUT : ::IO::NULL)
+        db.loggers << logger
+
         migration_config = {}
         if options[:allow_missing_migration_files]
           migration_config[:allow_missing_migration_files]= true
         end
 
         if options[:version]
-          STDOUT.puts "Migrating to version #{options[:version]}"
+          logger.info("Migrating to version #{options[:version]}")
+
           migration_config[:target]= options[:version].to_i
         end
 
         Sequel::Migrator.run(db, options[:migration_directory], migration_config)
 
-        STDOUT.puts('Migration completed')
+        logger.info('Migration completed')
       end
 
     end
