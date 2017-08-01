@@ -1,15 +1,15 @@
 class Rack::App::SeQueL::Runner
 
-  def self.setup_command(command)
+  def self.setup_command(command, *excludes)
     command.class_eval do
 
       option '-a', '--allow_missing_migration_files', 'In some cases, you may want to allow a migration in the database that does not exist in the filesystem' do
         migration_config[:allow_missing_migration_files] = true
-      end
+      end unless excludes.include?(:allow_missing_migration_files)
 
       option '-c', '--current [CURRENT_VERION]', 'Set the current version of the database for the execution' do |current_database_version|
         migration_config[:current] = current_database_version
-      end
+      end unless excludes.include?(:current)
 
       # option '-r', '--relative [MIGRATION_COUNT]', 'Run the given number of migrations, with a positive number being migrations to migrate up, and a negative number being migrations to migrate down (IntegerMigrator only).' do |value|
       #   migration_config[:relative] = value.to_i
@@ -17,7 +17,7 @@ class Rack::App::SeQueL::Runner
 
       option '-t', '--target [TIMESTAMP]', 'The target version to which to migrate.  If not given, migrates to the maximum version.' do |target_version|
         migration_config[:target] = target_version
-      end
+      end unless excludes.include?(:target)
 
       option '-m', '--path-to-migration-patches [DIR_PATH]', "set to check what directory should be used for db migrations (default: #{Rack::App::SeQueL::Migration::DEFAULT_DIRECTORY})" do |new_migration_directory|
         options[:migration_directory] = new_migration_directory
