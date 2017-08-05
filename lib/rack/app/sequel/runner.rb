@@ -33,6 +33,10 @@ class Rack::App::SeQueL::Runner
         @migration_config ||= {}
       end
 
+      def options
+        @options ||= {}
+      end
+
     end
   end
 
