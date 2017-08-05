@@ -18,4 +18,11 @@ command 'db:migration:create' do
 
     STDOUT.puts(file_path)
   end
+
+  private
+
+  def options
+    @options ||= {}
+  end
+
 end
